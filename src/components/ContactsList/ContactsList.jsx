@@ -15,20 +15,20 @@ const ContactsList = () => {
     };
   
     useEffect(() => {
-        if (filter && contacts) {
+        if (filter && contacts.items) {
             setFiltered(
-          contacts.filter(el =>
+          contacts.items.filter(el =>
             el.name.toLowerCase().includes(filter.toLowerCase())
           )
         )
         }else {
-            setFiltered(contacts)
+            setFiltered(contacts.items)
         }
         
       }, [contacts, filter]);
 
   return (
-    <ContactsContainer>
+    <ContactsContainer> 
         <h2>Contacts</h2>
         <Filter />
         <div>
@@ -37,7 +37,7 @@ const ContactsList = () => {
           filtered.map(contact => (
             <ContactsItem key={contact.id}>
               <p>
-                {contact.name}: {contact.number}
+                {contact.name}: {contact.phone}
               </p>
               <ContactsButton onClick={() => deleteItem(contact.id)}>Delete</ContactsButton>
             </ContactsItem>

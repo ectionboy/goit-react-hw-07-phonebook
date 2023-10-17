@@ -5,7 +5,7 @@ import { FormElement, Title, FormInput, FormButton } from './Form.styled';
 
 const Form = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const { contacts } = useSelector(store => store.contacts);
   const dispatch = useDispatch();
 
@@ -16,13 +16,13 @@ const Form = () => {
   const formSubmit = e => {
     e.preventDefault();
 
-    if (contacts && inNameNew(contacts, name) !== undefined) {
+    if (contacts.items && inNameNew(contacts.items, name) !== undefined) {
       return alert(`${name} is already in contacts.`);
     }
 
-    createContact({ name, number });
+    createContact({ name, phone });
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   const inNameNew = (phoneBook, newContact) => {
@@ -33,7 +33,7 @@ const Form = () => {
     setName(value);
   };
   const inputNumber = ({ target: { value } }) => {
-    setNumber(value);
+    setPhone(value);
   };
 
   return (
@@ -59,7 +59,7 @@ const Form = () => {
             name="number"
             pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            value={number}
+            value={phone}
             required
           />
         </div>
