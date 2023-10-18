@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchContacts, addContact, deleteContact } from "./operations";
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from './operations';
 
 // fetchContacts = fetchTasks
 
 const contactsSlice = createSlice({
-  name: "contacts",
+  name: 'contacts',
   initialState: {
     contacts: {
       items: [],
       isLoading: false,
-      error: null
+      error: null,
     },
   },
   extraReducers: {
@@ -33,7 +33,7 @@ const contactsSlice = createSlice({
     [addContact.fulfilled](state, action) {
       state.contacts.isLoading = false;
       state.contacts.error = null;
-      state.contacts.items.push(action.payload)
+      state.contacts.items.push(action.payload);
     },
     [addContact.rejected](state, action) {
       state.contacts.isLoading = false;
@@ -46,7 +46,9 @@ const contactsSlice = createSlice({
     [deleteContact.fulfilled](state, action) {
       state.contacts.isLoading = false;
       state.contacts.error = null;
-      state.contacts.items = state.contacts.items.filter(item => item.id !== action.payload.id);
+      state.contacts.items = state.contacts.items.filter(
+        item => item.id !== action.payload.id
+      );
     },
     [deleteContact.rejected](state, action) {
       state.contacts.isLoading = false;
@@ -57,26 +59,9 @@ const contactsSlice = createSlice({
 
 export const contactsReducer = contactsSlice.reducer;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import { createSlice, nanoid } from '@reduxjs/toolkit';
 // import { initialState } from './initialState';
 // import { fetchContacts } from 'api/contacts';
-
-
 
 // export const getAllContacts = () => async (dispatch) => {
 //   try {
@@ -95,7 +80,7 @@ export const contactsReducer = contactsSlice.reducer;
 //   reducers: {
 //     pending: (state) => {
 //       state.contacts.isLoading= true
-//     }, 
+//     },
 //     fulfilled: (state, {payload}) => {
 //       state.contacts.isLoading= false
 //       state.contacts.items= payload
@@ -110,8 +95,8 @@ export const contactsReducer = contactsSlice.reducer;
 //           ...state,
 //           contacts: {
 //             ...state.contacts,
-//             items:[      
-//               ...state.contacts.items,     
+//             items:[
+//               ...state.contacts.items,
 //               {
 //               ...payload,
 //               id: nanoid(),
@@ -124,7 +109,7 @@ export const contactsReducer = contactsSlice.reducer;
 //           ...state,
 //           contacts: {
 //             ...state.contacts,
-//             items:[          
+//             items:[
 //               {
 //               ...payload,
 //               id: nanoid(),
@@ -141,7 +126,7 @@ export const contactsReducer = contactsSlice.reducer;
 //         contacts: {
 //           items:[...state.contacts.items.filter(el => el.id !== payload)]
 //         }
-        
+
 //       };
 //     },
 
