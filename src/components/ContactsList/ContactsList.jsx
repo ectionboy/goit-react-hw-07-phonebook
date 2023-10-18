@@ -11,7 +11,6 @@ const ContactsList = () => {
     const [filtered, setFiltered] = useState([]);
     const { items, isLoading, error } = useSelector(getContacts);
     const filter = useSelector(getFilter);
-console.log(filter)
     const dispatch = useDispatch();
 
     useEffect(() => {
