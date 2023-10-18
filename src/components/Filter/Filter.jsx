@@ -8,7 +8,6 @@ import { filterSet } from 'redux/filter/slice';
 const Filter = () => {
 
     const filter = useSelector(getFilter);
-console.log(filter)
     const dispatch = useDispatch();
   
     const handleFilter = value => {

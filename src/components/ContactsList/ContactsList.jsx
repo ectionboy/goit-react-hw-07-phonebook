@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import {  useDispatch, useSelector } from 'react-redux';
 // import { deleteContacts } from 'redux/contacts/slice';
 import { ContactsContainer, ContactsListUl, ContactsItem, ContactsButton } from './ContactsList.styled';
-import { fetchContacts } from 'redux/contacts/operations';
+import { deleteContact, fetchContacts } from 'redux/contacts/operations';
 import { getContacts, getFilter } from 'redux/selectors';
 
 
@@ -17,9 +17,9 @@ const ContactsList = () => {
       dispatch(fetchContacts());
     }, [dispatch]);
   
-    // const deleteItem = id => {
-    //   dispatch(deleteContacts(id));
-    // };
+    const deleteItem = id => {
+      dispatch(deleteContact(id));
+    };
   
     useEffect(() => {
         if (filter && items) {
@@ -49,7 +49,7 @@ const ContactsList = () => {
                 {contact.name}: {contact.phone}
               </p>
               <ContactsButton 
-              // onClick={() => deleteItem(contact.id)}
+              onClick={() => deleteItem(contact.id)}
               >Delete</ContactsButton>
             </ContactsItem>
           ))}
