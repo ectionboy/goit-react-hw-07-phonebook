@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContacts } from 'redux/contacts/slice';
+import { useSelector } from 'react-redux';
+// import { addContacts } from 'redux/contacts/slice';
 import { FormElement, Title, FormInput, FormButton } from './Form.styled';
 
 const Form = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const { contacts } = useSelector(store => store.contacts);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const createContact = data => {
-    dispatch(addContacts(data));
-  };
+  // const createContact = data => {
+  //   dispatch(addContacts(data));
+  // };
 
   const formSubmit = e => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const Form = () => {
       return alert(`${name} is already in contacts.`);
     }
 
-    createContact({ name, phone });
+    // createContact({ name, phone });
     setName('');
     setPhone('');
   };

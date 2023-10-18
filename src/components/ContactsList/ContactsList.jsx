@@ -1,37 +1,47 @@
 import Filter from 'components/Filter/Filter'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteContacts } from 'redux/contacts/slice';
+import {  useDispatch, useSelector } from 'react-redux';
+// import { deleteContacts } from 'redux/contacts/slice';
 import { ContactsContainer, ContactsListUl, ContactsItem, ContactsButton } from './ContactsList.styled';
+import { fetchContacts } from 'redux/contacts/operations';
+import { getContacts, getFilter } from 'redux/selectors';
 
 
 const ContactsList = () => {
     const [filtered, setFiltered] = useState([]);
-    const { contacts, filter } = useSelector(store => store.contacts);
+    const { items, isLoading, error } = useSelector(getContacts);
+    const filter = useSelector(getFilter);
+console.log(filter)
     const dispatch = useDispatch();
+
+    useEffect(() => {
+      dispatch(fetchContacts());
+    }, [dispatch]);
   
-    const deleteItem = id => {
-      dispatch(deleteContacts(id));
-    };
+    // const deleteItem = id => {
+    //   dispatch(deleteContacts(id));
+    // };
   
     useEffect(() => {
-        if (filter && contacts.items) {
+        if (filter && items) {
             setFiltered(
-          contacts.items.filter(el =>
+          items.filter(el =>
             el.name.toLowerCase().includes(filter.toLowerCase())
           )
         )
         }else {
-            setFiltered(contacts.items)
+            setFiltered(items)
         }
         
-      }, [contacts, filter]);
+      }, [filter, items]);
 
   return (
     <ContactsContainer> 
         <h2>Contacts</h2>
         <Filter />
         <div>
+        {isLoading && <p>Loading contacts...</p>}
+        {error && <b>{error}</b>}
       <ContactsListUl>
         {filtered &&
           filtered.map(contact => (
@@ -39,7 +49,9 @@ const ContactsList = () => {
               <p>
                 {contact.name}: {contact.phone}
               </p>
-              <ContactsButton onClick={() => deleteItem(contact.id)}>Delete</ContactsButton>
+              <ContactsButton 
+              // onClick={() => deleteItem(contact.id)}
+              >Delete</ContactsButton>
             </ContactsItem>
           ))}
       </ContactsListUl>
